@@ -1,5 +1,9 @@
 import AllTweets from '@/components/AllTweets'
 import  Router from 'vue-router'
+import Emergency from '@/components/TweetSection/emergencyTweets.vue'
+import Feedback from '@/components/TweetSection/feedbackTweets.vue'
+
+
 
 const router=new Router({
 
@@ -8,7 +12,19 @@ const router=new Router({
         {
             name:'AllTweets',
             path:'/',
-            component:AllTweets
+            component:AllTweets,
+            children:[
+                {
+                    name:'EmeregencySection',
+                    path:'emergency',
+                    component:Emergency
+                },
+                   {
+                    name:'FeedbackSection',
+                    path:'feedback',
+                    component:Feedback
+                }
+            ]
 
 
         }

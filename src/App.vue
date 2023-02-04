@@ -1,8 +1,13 @@
 <template>
   <div id="app">
     <navBar></navBar>
+
+    <div id="main-content">
+      <router-view :key="$route.fullPath"></router-view>
+      
+    </div>
    
-    <router-view></router-view>
+
 
   </div>
 </template>
@@ -29,5 +34,13 @@ export default {
   text-align: center;
   color: #2c3e50;
   height: 100vh;
+}
+
+#main-content{
+
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+  height: 100%;
 }
 </style>
