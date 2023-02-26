@@ -95,6 +95,7 @@ export default {
 .dropdown{
   display: flex;
   justify-content: flex-start;
+  margin-top: 10px;
 }
 .tab-name a{
   width: 100%;

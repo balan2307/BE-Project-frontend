@@ -1,12 +1,17 @@
 <template>
     <div>
         <b-row class="tweet_rows">
-    <b-col  v-for="index in 6"
+    
+    <b-col  v-for="(tweet,index) in tweets"
       :key="index"
       cols="12"
       lg="3"
       sm="6"
-      md="4" >  <UserTweet></UserTweet></b-col>
+      md="4" 
+     
+      > 
+       <UserTweet  :tweet="tweet"></UserTweet>
+    </b-col>
 
    
   </b-row>
@@ -16,10 +21,41 @@
 
 <script>
 import UserTweet from '@/components/Tweet.vue'
+import {getTweets} from '@/services/tweets'
 
 export default {
     name:'emergencyTweets',
-    components:{UserTweet}
+    components:{UserTweet},
+    data(){
+        return{
+            tweets:[]
+
+        }
+
+    },
+    methods:{
+
+        async showTweets()
+        {
+
+        let tweets=await getTweets();
+        tweets=tweets.data;
+        tweets=tweets.filter( tweet => tweet.Type=="Emergency")
+        this.tweets=tweets
+        console.log("check ",this.tweets)
+
+
+        }
+
+    },
+    async created(){
+        this.showTweets();
+        setInterval(this.showTweets, 5000);
+
+     
+    }
+
+
 
 }
 </script>

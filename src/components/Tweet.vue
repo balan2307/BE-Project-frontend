@@ -2,15 +2,12 @@
    <b-card
       img-alt="Image"
       img-top
-      tag="article"
-
-    >
+      tag="article" >
       <span class="tweet_header" >Emergency</span>
     
       <div class="p-3 tweet_content">
       <b-card-text class="tweet_data">
-        Some quick example text to build on the card title and make up the bulk
-        of the card's content.
+       {{ tweet.tweet }}
       </b-card-text>
 
 
@@ -42,6 +39,7 @@
 <script>
 export default {
     name:'UserTweet',
+    props:["tweet"],
     data()
   {
     return{
@@ -124,6 +122,10 @@ export default {
   align-self: flex-start;
 }
 
+.card-body
+{
+  width: 100%;
+}
 .sendBtn {
   display: flex;
   justify-content: flex-end;
