@@ -38,7 +38,7 @@
 </template>
 
 <script>
-// import {postReply} from '@/services/tweets'
+import {postReply} from '@/services/tweets'
 
 export default {
     name:'UserTweet',
@@ -68,7 +68,7 @@ export default {
       const id= JSON.parse(this.tweet.tweet_ID).$oid;
       this.$emit("hidePost",id)
 
-      // await postReply(id,this.reply)
+      await postReply(id,this.reply)
     }
 
   },
