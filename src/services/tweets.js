@@ -22,5 +22,8 @@ export const postReply=async function(id,reply){
  
   // const res=await login();
   // console.log("Response",res)
-  return axios.post(`https://ushareinteract-2.onrender.com/user/post/${id}/comments`,{'comment':reply},{ withCredentials: true }).then(successHandler).catch(errorHandler);
+  return axios.post(`https://ushareinteract-2.onrender.com/user/post/${id}/comments`,{'comment':reply},{ withCredentials: true ,
+  headers: {
+    'Authorization': 'Admin',
+  }}).then(successHandler).catch(errorHandler);
 }
