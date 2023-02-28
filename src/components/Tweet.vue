@@ -24,9 +24,10 @@
             rows="3"
             max-rows="6"
             class="tweet_reply"
+            v-model="reply"
           ></b-form-textarea>
 
-          <div class="sendBtn">
+          <div class="sendBtn" @click="sendReply">
             <img class="send_button" src="@/assets/send.svg" />
           </div>
         </div>
@@ -37,13 +38,16 @@
 </template>
 
 <script>
+import {postReply} from '@/services/tweets'
+
 export default {
     name:'UserTweet',
     props:["tweet"],
     data()
   {
     return{
-      showMsgBox:false
+      showMsgBox:false,
+      reply:''
     }
 
   },
@@ -54,8 +58,22 @@ export default {
       return this.showMsgBox;
 
       
+    },
+    async sendReply()
+    {
+
+      const id= JSON.parse(this.tweet.tweet_ID).$oid;
+      await postReply(id,this.reply)
     }
+
+  },
+  created(){
+
+
+    
+
   }
+
 
 }
 </script>
