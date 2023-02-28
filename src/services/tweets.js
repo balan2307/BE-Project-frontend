@@ -11,16 +11,16 @@ export const getTweets=async function(){
 
 }
 
-async function login(){
-   return axios.post(`https://ushareinteract-2.onrender.com/user/remote/login`,{'email':"esakki@gmail.com",'password':"esakki"},{ withCredentials: true }).then(successHandler).catch(errorHandler);
-}
+// async function login(){
+//    return axios.post(`http://localhost:5000/user/remote/login`,{'email':"esakki@gmail.com",'password':"esakki"},{ withCredentials: true }).then(successHandler).catch(errorHandler);
+// }
 
 export const postReply=async function(id,reply){
 
 
   console.log("reply",reply)
  
-  const res=await login();
+  // const res=await login();
   console.log("Response",res)
-  return axios.post(`https://ushareinteract-2.onrender.com/user/post/${id}/comments`,{'comment':reply},{ withCredentials: true }).then(successHandler).catch(errorHandler);
+  return axios.post(`http://localhost:5000/user/post/${id}/comments`,{'comment':reply},{ withCredentials: true }).then(successHandler).catch(errorHandler);
 }
