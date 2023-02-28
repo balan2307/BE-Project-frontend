@@ -3,7 +3,7 @@
       img-alt="Image"
       img-top
       tag="article" >
-      <span class="tweet_header" >Emergency</span>
+      <span class="tweet_header" v-if="showPost">Emergency</span>
     
       <div class="p-3 tweet_content">
       <b-card-text class="tweet_data">
@@ -47,7 +47,8 @@ export default {
   {
     return{
       showMsgBox:false,
-      reply:''
+      reply:'',
+      showPost:false
     }
 
   },
@@ -62,6 +63,7 @@ export default {
     async sendReply()
     {
 
+      this.showPost=true;
       const id= JSON.parse(this.tweet.tweet_ID).$oid;
       await postReply(id,this.reply)
     }
