@@ -10,7 +10,7 @@
       md="4" 
      
       > 
-       <UserTweet  :tweet="tweet" @hidePost="hideTweet" ></UserTweet>
+      <UserTweet :tweet="tweet" @hidePost="hideTweet" ></UserTweet>
     </b-col>
 
    
@@ -37,7 +37,7 @@ export default {
 
         hideTweet(id)
         {
-          
+            console.log("ID",id)
             this.tweets=this.tweets.filter(tweet=>{
 
                 const tid= JSON.parse(tweet.tweet_ID).$oid;

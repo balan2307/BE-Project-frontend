@@ -8,7 +8,8 @@
       lg="3"
       sm="6"
       md="4" >  
-      <UserTweet :tweet="tweet" @hidePost="hideTweet></UserTweet></b-col>
+      <UserTweet :tweet="tweet" @hidePost="hideTweet" ></UserTweet>
+      </b-col>
 
    
   </b-row>
