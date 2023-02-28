@@ -21,6 +21,6 @@ export const postReply=async function(id,reply){
   console.log("reply",reply)
  
   // const res=await login();
-  console.log("Response",res)
+  // console.log("Response",res)
   return axios.post(`https://ushareinteract-2.onrender.com/user/post/${id}/comments`,{'comment':reply},{ withCredentials: true }).then(successHandler).catch(errorHandler);
 }
