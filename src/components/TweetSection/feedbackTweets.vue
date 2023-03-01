@@ -62,7 +62,7 @@ export default {
     async created(){
         
         this.showTweets();
-        setInterval(this.showTweets, 500000);
+        setInterval(this.showTweets, 3000);
 
      
 
