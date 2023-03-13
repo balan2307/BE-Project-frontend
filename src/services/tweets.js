@@ -24,6 +24,8 @@ export const postReply=async function(id,reply){
   // console.log("Response",res)
   await axios.post(`http://localhost:3000/tweets/reply`,{'id':id}).then(successHandler).catch(errorHandler);
 
+  console.log("post reply")
+
   return axios.post(`https://ushareinteract-2.onrender.com/user/post/${id}/comments`,{'comment':reply},{ withCredentials: true ,
   headers: {
     'Authorization': 'Admin',
