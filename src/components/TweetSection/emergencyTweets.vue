@@ -50,7 +50,7 @@ export default {
 
         let tweets=await getTweets();
         tweets=tweets.data;
-        tweets=tweets.filter( tweet => tweet.Type=="Emergency")
+        tweets=tweets.filter( tweet => tweet.Type=="Emergency" && !tweet.responded)
         this.tweets=tweets
      
 

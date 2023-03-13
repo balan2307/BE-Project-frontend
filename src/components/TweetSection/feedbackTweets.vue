@@ -50,7 +50,7 @@ export default {
 
         let tweets=await getTweets();
         tweets=tweets.data;
-        tweets=tweets.filter( tweet => tweet.prediction=="feedback")
+        tweets=tweets.filter( tweet => tweet.prediction=="feedback" && !tweet.responded)
         this.tweets=tweets
      
 
