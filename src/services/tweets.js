@@ -22,7 +22,7 @@ export const postReply=async function(tid,pid,reply){
  
   // const res=await login();
   // console.log("Response",res)
-  axios.post(`http://localhost:3000/tweets/reply`,{'id':pid}).then(successHandler).catch(errorHandler);
+  axios.post(`http://localhost:3000/tweets/reply`,{'id':pid,'reply':reply}).then(successHandler).catch(errorHandler);
 
   console.log("post reply")
 
