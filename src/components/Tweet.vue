@@ -65,10 +65,12 @@ export default {
 
     
      
-      const id= JSON.parse(this.tweet.tweet_ID).$oid;
-      this.$emit("hidePost",id)
+      const tid= JSON.parse(this.tweet.tweet_ID).$oid;
+      const pid=this.tweet._id;
+      this.$emit("hidePost",tid)
 
-      await postReply(id,this.reply)
+
+      await postReply(tid,pid,this.reply)
     }
 
   },
