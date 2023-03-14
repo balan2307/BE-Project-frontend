@@ -22,14 +22,14 @@
       <div class="dropdown">
 
   <b-dropdown split id="emergencyDropdown" :text="edmropdown" class="m-md-2" >
-    <b-dropdown-item  @click="changeView"> All Tweets</b-dropdown-item>
+
     <b-dropdown-item  @click="changeView">Responded</b-dropdown-item>
     <b-dropdown-item  @click="changeView"> Not Responded</b-dropdown-item>
   </b-dropdown>
 </div>
 
       <router-view :key="$route.fullPath"></router-view>
- 
+
 
 
    
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-
+import { eventBus } from "@/main";
 
 export default {
   name: "AllTweets",
@@ -48,15 +48,33 @@ export default {
       tab2active: "",
       link1active: "",
       link2active: "",
-      edmropdown:'View Tweets'
+      edmropdown:'Not Responded'
     }
   },
   methods:{
+    // optionsChanged()
+    // {
+
+    //   console.log("options changed")
+    // },
     changeView(event)
     {
-      console.log("change ")
+  
       const show=event.target.textContent;
       this.edmropdown=show
+      if(this.$route.path == "/emergency" )
+      {
+     
+
+        eventBus.$emit("emergency",show);
+
+      }
+      else
+      {
+    
+        eventBus.$emit("feedback",show);
+
+      }
 
     }
   },
@@ -92,6 +110,19 @@ export default {
   flex: 0!important;
 } */
 
+html { 
+    height:100%;
+}
+body { 
+    min-height:100%;
+  
+}
+
+html,body {
+  margin:0;
+  padding:0;
+  overflow-x:hidden;
+}
 .dropdown{
   display: flex;
   justify-content: flex-start;

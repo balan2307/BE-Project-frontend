@@ -8,7 +8,7 @@
       lg="3"
       sm="6"
       md="4" >  
-      <UserTweet :tweet="tweet" @hidePost="hideTweet" ></UserTweet>
+      <UserTweet :tweet="tweet" :type="type" @hidePost="hideTweet" ></UserTweet>
       </b-col>
 
    
@@ -22,12 +22,16 @@
 
 import {getTweets} from '@/services/tweets'
 import UserTweet from '@/components/Tweet.vue'
+import { eventBus } from "@/main";
+
 export default {
     name:'feedbackTweets',
     components:{UserTweet},
     data(){
         return{
-            tweets:[]
+            tweets:[],
+            show:'',
+            type:'Feedback'
 
         }
 
@@ -50,7 +54,8 @@ export default {
 
         let tweets=await getTweets();
         tweets=tweets.data;
-        tweets=tweets.filter( tweet => tweet.prediction=="feedback" && !tweet.responded)
+        if (this.show != "Responded")  tweets=tweets.filter( tweet => tweet.prediction=="feedback" && !tweet.responded)
+        else  tweets=tweets.filter( tweet => tweet.prediction=="feedback" && tweet.responded)
         this.tweets=tweets
      
 
@@ -63,6 +68,12 @@ export default {
         
         this.showTweets();
         setInterval(this.showTweets, 3000);
+
+        eventBus.$on("feedback", (data) => {
+            this.show = data;
+            this.showTweets();
+   
+    });
 
      
 

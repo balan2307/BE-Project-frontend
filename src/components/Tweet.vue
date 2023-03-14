@@ -3,7 +3,7 @@
       img-alt="Image"
       img-top
       tag="article" >
-      <span class="tweet_header" >Emergency</span>
+      <span class="tweet_header" >{{type}}</span>
     
       <div class="p-3 tweet_content">
       <b-card-text class="tweet_data">
@@ -42,7 +42,7 @@ import {postReply} from '@/services/tweets'
 
 export default {
     name:'UserTweet',
-    props:["tweet"],
+    props:["tweet","type"],
     data()
   {
     return{
@@ -65,12 +65,18 @@ export default {
 
     
      
+      const reply=this.reply;
+
+      this.reply=" ";
+      this.toggleReply();
       const tid= JSON.parse(this.tweet.tweet_ID).$oid;
       const pid=this.tweet._id;
-      this.$emit("hidePost",tid)
+      this.$emit("hidePost",tid);
 
 
-      await postReply(tid,pid,this.reply)
+
+      await postReply(tid,pid,reply)
+   
     }
 
   },

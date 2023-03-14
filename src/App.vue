@@ -33,7 +33,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  height: 100vh;
+  height: 100%;
 }
 
 #main-content{
@@ -42,5 +42,6 @@ export default {
   justify-content: center;
   margin-top: 100px;
   height: 100%;
+  padding-bottom: 20px;
 }
 </style>
