@@ -9,9 +9,15 @@
       <b-card-text class="tweet_data">
        {{ tweet.tweet }}
       </b-card-text>
+     
+      <div class="reply" v-if="tweet.responded">
+
+        <p class="admin-reply">{{ tweet.reply[0] }}</p>
+
+      </div>
 
 
-      <div class="message">
+      <div class="message" v-if="!tweet.responded">
         <div>
           <img class="reply_button" src="@/assets/message.svg" @click="toggleReply" />
         </div>
@@ -93,6 +99,11 @@ export default {
 
 <style>
 
+.admin-reply{
+  font-weight: 600;
+  display: flex;
+  color: #727272;
+}
 .tweet_data
 {
 
