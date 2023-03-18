@@ -1,6 +1,7 @@
 <template>
   <div>
-    <b-row class="tweet_rows">
+    <LoadingIcon :loading="loading" ></LoadingIcon>
+    <b-row class="tweet_rows" v-if="!loading">
       <b-col
         v-for="(tweet, index) in tweets"
         :key="index"
@@ -31,16 +32,17 @@
 
 <script>
 import UserTweet from "@/components/Tweet.vue";
+import LoadingIcon from '@/components/Utils/Loading.vue'
 import PaginationComponent from "@/components/Utils/Pagination.vue";
 import {
   getEmerRespondedTweets,
   getEmerNotRespondedTweets,
 } from "@/services/tweets";
-// import { eventBus } from "@/main";
+
 
 export default {
   name: "emergencyTweets",
-  components: { UserTweet, PaginationComponent },
+  components: { UserTweet, PaginationComponent ,LoadingIcon},
 
   data() {
     return {
@@ -51,6 +53,7 @@ export default {
       page: 1,
       currentpage: this.$route.query.page || 1,
       pagelimit: 8,
+      loading:true
     };
   },
   methods: {
@@ -61,6 +64,7 @@ export default {
       });
     },
     async showTweets() {
+      // console.log("show tweets")
       if (this.$route.query.search != "responded") {
         let tweets = await getEmerNotRespondedTweets(
           this.currentpage,
@@ -81,11 +85,15 @@ export default {
         tweets = tweets.data.posts;
 
         this.tweets = tweets;
+      
+   
       }
+      this.loading=false;
     },
   },
 
   async created() {
+    this.loading=true;
     this.showTweets();
 
     let intervalID = setInterval(this.showTweets, 3000);

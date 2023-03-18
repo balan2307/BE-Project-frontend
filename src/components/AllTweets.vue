@@ -1,5 +1,14 @@
 <template>
   <div id="allTweets">
+
+    
+    <div id="alertmessage">
+      <AlertMessage ref="alertcomp"
+      variant="warning"
+      :message="errormessage" ></AlertMessage>
+    </div>
+
+
     <div id="tab">
       <div id="tab1" :class="tab1active">
         <span class="tab-name">
@@ -38,11 +47,12 @@
 
 <script>
 import { eventBus } from "@/main";
+import AlertMessage from '@/components/Utils/Alert.vue'
 
 export default {
   name: "AllTweets",
-
-  data() {
+  components:{AlertMessage},
+   data() {
     return {
       tab1active: "",
       tab2active: "",
@@ -50,6 +60,8 @@ export default {
       link2active: "",
       edmropdown: "",
       pages: 5,
+      errormessage:"",
+      showalert:false,
       page: 1,
     };
   },
@@ -85,7 +97,7 @@ export default {
     },
   },
   created() {
-    // console.log("start")
+    console.log("start")
 
  
     if (this.$route.query.search == "responded") {
@@ -108,8 +120,30 @@ export default {
       this.link2active = "a-active";
       this.link1active = "";
     }
+
+ 
   },
-  mounted() {},
+  mounted() {
+    console.log("alltweets mounted")
+
+
+
+    eventBus.$on("replysent", (data) => {
+      console.log("inside bus")
+      this.errormessage=data.message;
+
+      eventBus.$emit("alert");
+      // this.showalert=true;
+     
+    
+      // this.$nextTick(() => {
+      //   console.log("check msg",this.errormessage,this.$refs.alertcomp)
+      //   this.$refs.alertcomp.showAlert();
+      // })
+
+    
+    });
+  },
 };
 </script>
 
@@ -138,6 +172,13 @@ body {
 .tab-name a {
   width: 100%;
   display: block;
+}
+
+#alertmessage
+{
+  width: 80%;
+  margin: 0 auto;
+    margin-bottom: 8px;
 }
 #allTweets {
   /* border: 1px solid red; */

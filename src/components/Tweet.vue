@@ -45,6 +45,7 @@
 
 <script>
 import {postReply} from '@/services/tweets'
+import { eventBus } from "@/main";
 
 export default {
     name:'UserTweet',
@@ -59,6 +60,7 @@ export default {
 
   },
   methods:{
+
     toggleReply()
     {
       this.showMsgBox=!this.showMsgBox;
@@ -80,8 +82,10 @@ export default {
       this.$emit("hidePost",tid);
 
 
-
+      eventBus.$emit("replysent", {message:"Reply sent successfully"});
       await postReply(tid,pid,reply)
+      console.log("sent bus")
+      
    
     }
 

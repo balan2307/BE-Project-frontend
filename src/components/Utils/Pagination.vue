@@ -28,11 +28,17 @@
     },
     methods: {
       pageLink(index) {
-        if (this.$route.path == "/emergency")
-          return {
+        if (this.$route.path == "/emergency") return {
             path: "/emergency",
             query: { search: `${this.searchedfor}`, page: `${index + 1}` },
           };
+        else{
+          if (this.$route.path == "/feedback") return {
+            path: "/feedback",
+            query: { search: `${this.searchedfor}`, page: `${index + 1}` },
+          };
+        }
+
         return `${this.$route.path}?page=${index + 1}`;
       },
     },
