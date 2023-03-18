@@ -11,6 +11,53 @@ export const getTweets=async function(){
 
 }
 
+export const getEmerRespondedTweets=async function(currpage,perpage){
+
+
+   
+  return axios.get(`http://localhost:3000/emergency/resp`,{
+    params: {
+      page: currpage,
+      limit: perpage,
+    }}).then(successHandler).catch(errorHandler);
+
+}
+
+export const getEmerNotRespondedTweets=async function(currpage,perpage){
+
+
+  return axios.get(`http://localhost:3000/emergency/unresp`,{
+    params: {
+      page: currpage,
+      limit: perpage,
+    }}).then(successHandler).catch(errorHandler);
+
+}
+
+export const getFeedbackNotRespondedTweets=async function(currpage,perpage){
+
+
+  return axios.get(`http://localhost:3000/feedback/unresp`,{
+    params: {
+      page: currpage,
+      limit: perpage,
+    }}).then(successHandler).catch(errorHandler);
+
+}
+
+export const getFeedbackRespondedTweets=async function(currpage,perpage){
+
+
+  return axios.get(`http://localhost:3000/feedback/resp`,{
+    params: {
+      page: currpage,
+      limit: perpage,
+    }}).then(successHandler).catch(errorHandler);
+
+}
+
+
+
 // async function login(){
 //    return axios.post(`http://localhost:5000/user/remote/login`,{'email':"esakki@gmail.com",'password':"esakki"},{ withCredentials: true }).then(successHandler).catch(errorHandler);
 // }

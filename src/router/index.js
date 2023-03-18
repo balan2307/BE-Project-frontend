@@ -12,6 +12,7 @@ const router=new Router({
         {
             name:'AllTweets',
             path:'/',
+            redirect: '/emergency',
             component:AllTweets,
             children:[
                 {

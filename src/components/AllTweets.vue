@@ -1,38 +1,38 @@
 <template>
   <div id="allTweets">
-
     <div id="tab">
-        <div id="tab1" :class="tab1active" >
-          <span class="tab-name" >
-            <router-link :class="link1active" to="/emergency">
-              Emergency</router-link
-            >
-          </span>
-        </div>
-
-        <div id="tab2" :class="tab2active">
-          <span class="tab-name" 
-            ><router-link :class="link2active" to="/feedback">
-              Feedback</router-link
-            ></span
+      <div id="tab1" :class="tab1active">
+        <span class="tab-name">
+          <router-link :class="link1active" to="/emergency">
+            Emergency</router-link
           >
-        </div>
+        </span>
       </div>
 
-      <div class="dropdown">
+      <div id="tab2" :class="tab2active">
+        <span class="tab-name"
+          ><router-link :class="link2active" to="/feedback">
+            Feedback</router-link
+          ></span
+        >
+      </div>
+    </div>
 
-  <b-dropdown split id="emergencyDropdown" :text="edmropdown" class="m-md-2" >
+    <div class="dropdown">
+      <b-dropdown
+        split
+        id="emergencyDropdown"
+        :text="edmropdown"
+        class="m-md-2"
+      >
+        <b-dropdown-item @click="changeView">Responded</b-dropdown-item>
+        <b-dropdown-item @click="changeView"> Not Responded</b-dropdown-item>
+      </b-dropdown>
+    </div>
 
-    <b-dropdown-item  @click="changeView">Responded</b-dropdown-item>
-    <b-dropdown-item  @click="changeView"> Not Responded</b-dropdown-item>
-  </b-dropdown>
-</div>
+    <router-view :key="$route.fullPath"></router-view>
 
-      <router-view :key="$route.fullPath"></router-view>
-
-
-
-   
+    <div id="pagination_component"></div>
   </div>
 </template>
 
@@ -41,96 +41,103 @@ import { eventBus } from "@/main";
 
 export default {
   name: "AllTweets",
-  data()
-  {
-    return{
+
+  data() {
+    return {
       tab1active: "",
       tab2active: "",
       link1active: "",
       link2active: "",
-      edmropdown:'Not Responded'
-    }
+      edmropdown: "",
+      pages: 5,
+      page: 1,
+    };
   },
-  methods:{
-    // optionsChanged()
-    // {
-
-    //   console.log("options changed")
-    // },
-    changeView(event)
-    {
+  methods: {
   
-      const show=event.target.textContent;
-      this.edmropdown=show
-      if(this.$route.path == "/emergency" )
-      {
-     
+    changeView(event) {
+      const show = event.target.textContent || this.edmropdown;
 
-        eventBus.$emit("emergency",show);
+      this.edmropdown = show;
 
+      if (show == "Responded") {
+        const query = { search: "responded" };
+        if (!this.$route.query.page) {
+          query.page = 1;
+        }
+        this.$router.push({ query: query });
+        // this.$router.push({ query: { search: "responded" } });
+      } else {
+
+        const query = { search: "unresponded" };
+        if (!this.$route.query.page) {
+          query.page = 1;
+        }
+        this.$router.push({ query: query });
+
+      
       }
-      else
-      {
-    
-        eventBus.$emit("feedback",show);
-
+      if (this.$route.path == "/emergency") {
+        eventBus.$emit("emegency", show);
+      } else {
+        eventBus.$emit("feedack", show);
       }
-
-    }
+    },
   },
-  created()
-  {
+  created() {
+    // console.log("start")
 
+ 
+    if (this.$route.query.search == "responded") {
+      
+      this.edmropdown = "Responded";
+ 
+    } else {
+      // console.log("unres");
+      this.edmropdown = "Not Responded";
+      
+    }
     if (this.$route.path == "/emergency") {
-     
       this.tab1active = "active";
       this.tab2active = "";
       this.link1active = "a-active";
       this.link2active = "";
     } else {
-
-      
       this.tab2active = "active";
       this.tab1active = "";
       this.link2active = "a-active";
       this.link1active = "";
     }
   },
-  mounted() {
- 
-  }
-
-
+  mounted() {},
 };
 </script>
 
 <style>
-/* #emergencyDropdown .btn-group > .btn{
 
-  flex: 0!important;
-} */
 
-html { 
-    height:100%;
+html {
+  height: 100%;
 }
-body { 
-    min-height:100%;
-  
+body {
+  min-height: 100%;
 }
 
-html,body {
-  margin:0;
-  padding:0;
-  overflow-x:hidden;
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
-.dropdown{
+.dropdown {
   display: flex;
   justify-content: flex-start;
   margin-top: 10px;
 }
-.tab-name a{
+.tab-name a {
   width: 100%;
-    display: block;
+  display: block;
 }
 #allTweets {
   /* border: 1px solid red; */
@@ -149,11 +156,9 @@ html,body {
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  
 }
 
-.tweet_rows
-{
+.tweet_rows {
   row-gap: 20px;
   margin-top: 50px;
 }
