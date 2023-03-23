@@ -282,7 +282,7 @@ label {
   border-left: 1px solid #e9e9e9;
   padding: 10px;
   width: 50%;
-  padding-top: 10px;
+  padding-top: 50px;
   background-color: #f0f0f0;
 }
 
@@ -369,7 +369,7 @@ label {
 
 #login {
 
-height: 80%;
+height: 85%;
 
 }
 
@@ -381,7 +381,7 @@ height: 80%;
 
 #login {
 width: 80%;
-height: 80%;
+height: 85%;
 
 }
 
@@ -396,7 +396,7 @@ height: 80%;
 
 #login {
 width: 80%;
-height: 80%;
+height: 85%;
 
 }
 
