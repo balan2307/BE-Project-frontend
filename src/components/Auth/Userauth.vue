@@ -8,23 +8,75 @@
 
       <b-form @submit="onSubmit" @reset="onReset" v-if="show" id="authform">
         <b-form-group class="form-input" id="input-group-1" label-for="input-1">
-          <b-form-input
+          <!-- <b-form-input
             id="input-1"
             v-model="form.email"
             type="email"
             placeholder="Enter email"
             required
-          ></b-form-input>
+          ></b-form-input> -->
+          <InputField
+          v-model="user.email"
+          :class="{ invalid: $v.user.email.$error }"
+          @blur="$v.user.email.$touch()"
+          type="email"
+          placeholder="Email"
+        ></InputField>
+        <p class="feedback" v-if="!$v.user.email.email">
+          Please provide a valid email address
+        </p>
+        <p
+          class="feedback"
+          v-if="!$v.user.email.required && $v.user.email.$anyError"
+        >
+          Email cannot be empty
+        </p>
         </b-form-group>
 
         <b-form-group class="form-input" id="input-group-2" label-for="input-2">
-          <b-form-input
-            type="password"
-            id="input-2"
-            v-model="form.password"
-            placeholder="Enter password"
-            required
-          ></b-form-input>
+
+        
+          <InputField
+        type="password"
+        v-model="user.password"
+        placeholder="Password"
+        :class="{ invalid: $v.user.password.$error }"
+        @blur="$v.user.password.$touch()"
+        @visited="setVisited"
+      ></InputField>
+
+      <p
+          class="feedback"
+          v-if="!$v.user.password.minLength && $v.user.password.$error"
+        >
+          Password should be atleast
+          {{ $v.user.password.$params.minLength.min }} characters
+        </p>
+        <p
+          class="feedback"
+          v-if="!$v.user.password.containsUppercase && $v.user.password.$error"
+        >
+          Password should contain atleast 1 Uppercase character
+        </p>
+        <p
+          class="feedback"
+          v-if="!$v.user.password.containsLowercase && $v.user.password.$error"
+        >
+          Password should contain atleast 1 Lowercase character
+        </p>
+        <p
+          class="feedback"
+          v-if="!$v.user.password.containsNumber && $v.user.password.$error"
+        >
+          Password should contain atleast 1 digit
+        </p>
+        <p
+          class="feedback"
+          v-if="!$v.user.password.containsSpecial && $v.user.password.$error"
+        >
+          Password should contain atleast 1 special character
+        </p>
+   
         </b-form-group>
 
         <div id="submit-section">
@@ -48,16 +100,18 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
+import InputField from '@/components/Utils/Forms/Input.vue'
+import { required, email,minLength } from "vuelidate/lib/validators";
 import { mapGetters } from "vuex";
 import { mapState } from "vuex";
 import { eventBus } from "@/main";
 
 export default {
   name: "AuthPage",
-
+  components:{InputField},
   data() {
     return {
-      form: {
+      user: {
         email: "",
         password: "",
       },
@@ -65,6 +119,31 @@ export default {
       show: true,
       // authtype: 'login'
     };
+  },
+  validations: {
+    user: {
+      email: {
+        required,
+        email,
+      },
+      password: {
+        required,
+        minLength: minLength(6),
+        containsUppercase: function (value) {
+          return /[A-Z]/.test(value);
+        },
+        containsLowercase: function (value) {
+          return /[a-z]/.test(value);
+        },
+        containsNumber: function (value) {
+          return /[0-9]/.test(value);
+        },
+        containsSpecial: function (value) {
+          return /[#?!@$%^&*-]/.test(value);
+        },
+        
+      },
+    },
   },
   computed: {
     ...mapGetters(["getAuthtype"]),
@@ -86,18 +165,11 @@ export default {
     });
     console.log("check store", this.getAuthtype);
     this.mode = this.getAuthtype;
-    // if(this.$route.path=='/login')
-    // {
-    //   this.mode='login'
-
-    // }
-    // else if(this.$route.path=='/register')
-    // {
-    //   this.mode='register'
-
-    // }
   },
   methods: {
+    setVisited() {
+      this.touched = true;
+    },
     changeAuth() {
       if (this.mode == "login") {
         this.mode = "signup";
@@ -112,11 +184,11 @@ export default {
       console.log("form", JSON.stringify(this.form));
       //  await LoginUser(this.form.email,this.form.password)
 
-      if (this.mode == "login")
+      if (this.mode == "login" && !this.$v.user.$invalid)
         signInWithEmailAndPassword(
           getAuth(),
-          this.form.email,
-          this.form.password
+          this.user.email,
+          this.user.password
         )
           .then((data) => {
             console.log("login successfully", data);
@@ -131,11 +203,11 @@ export default {
             eventBus.$emit("alert",errormessage);
             console.log("error ", err,err.code);
           });
-      else
+      else if(this.mode == "signup" && !this.$v.user.$invalid)
         createUserWithEmailAndPassword(
           getAuth(),
-          this.form.email,
-          this.form.password
+          this.user.email,
+          this.user.password
         )
           .then((data) => {
             console.log("register successfully", data);
@@ -210,7 +282,7 @@ label {
   border-left: 1px solid #e9e9e9;
   padding: 10px;
   width: 50%;
-  padding-top: 50px;
+  padding-top: 10px;
   background-color: #f0f0f0;
 }
 
@@ -270,13 +342,35 @@ label {
     background-position: center;
 }
 
+.feedback 
+{
+  color: red;
+  text-align: left;
+  margin: 0;
+    font-size: 0.8em;
+    font-weight: bold;
 
+}
+
+.form-input{
+  display: block;
+}
 @media (min-width: 1065px) {
 
   #login {
   width: 50%;
-  height: 70%;
+  height: 80%;
  
+}
+
+}
+
+@media (max-width: 1065px) {
+
+#login {
+
+height: 80%;
+
 }
 
 }
@@ -287,7 +381,7 @@ label {
 
 #login {
 width: 80%;
-height: 70%;
+height: 80%;
 
 }
 
@@ -301,7 +395,8 @@ height: 70%;
 }
 
 #login {
-width: 50%;
+width: 80%;
+height: 80%;
 
 }
 
@@ -316,19 +411,19 @@ width: 100%;
 @media (max-width: 480px) {
 
 
-#submit-section{
+/* #submit-section{
 
   flex-direction: column;
   gap: 20px;
 
 
-}
+} */
 
-#submit-btn,#alter-auth
+/* #submit-btn,#alter-auth
 {
   width: 50%;
 
-}
+} */
 
 }
 </style>
