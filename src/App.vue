@@ -119,5 +119,6 @@ created()
   height: 100vh;
   align-items: center;
   flex-direction: column;
+  background-color: #f9f9f9;
 }
 </style>

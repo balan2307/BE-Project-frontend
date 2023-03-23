@@ -80,7 +80,7 @@
         </b-form-group>
 
         <div id="submit-section">
-          <b-button id="submit-btn" type="submit" variant="primary">{{
+          <b-button id="submit-btn" type="submit" variant="primary" size="sm">{{
             changeSubmitBtnCaption
           }}</b-button>
 
@@ -276,6 +276,7 @@ label {
   /* height: 70%; */
   display: flex;
   border: 1px solid rgb(231, 222, 222);
+  box-shadow: 4px 8px #b7b2b2;
 }
 
 #form-main {
@@ -284,11 +285,13 @@ label {
   width: 50%;
   padding-top: 50px;
   background-color: #f0f0f0;
+  border-left-color: #d2c5c5;
 }
 
 #authimage
 {
   width: 50%;
+  background-color: white!important
 }
 
 #authtype {
@@ -303,6 +306,7 @@ label {
 
 #submit-btn {
   font-size: 15px;
+  height: 35px;
   /* border-radius: 25px; */
 }
 
