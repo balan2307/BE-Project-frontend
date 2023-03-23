@@ -133,13 +133,6 @@ export default {
       this.errormessage=data.message;
 
       eventBus.$emit("alert");
-      // this.showalert=true;
-     
-    
-      // this.$nextTick(() => {
-      //   console.log("check msg",this.errormessage,this.$refs.alertcomp)
-      //   this.$refs.alertcomp.showAlert();
-      // })
 
     
     });
