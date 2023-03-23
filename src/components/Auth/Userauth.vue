@@ -273,7 +273,7 @@ label {
 
 #login {
   width: 60%;
-  height: 70%;
+  /* height: 70%; */
   display: flex;
   border: 1px solid rgb(231, 222, 222);
 }
@@ -359,7 +359,8 @@ label {
 
   #login {
   width: 50%;
-  height: 80%;
+  /* height: 80%; */
+  min-height: 60vh;
  
 }
 
@@ -369,7 +370,7 @@ label {
 
 #login {
 
-height: 85%;
+/* height: 85%; */
 
 }
 
@@ -381,7 +382,7 @@ height: 85%;
 
 #login {
 width: 80%;
-height: 85%;
+/* height: 85%; */
 
 }
 
@@ -396,7 +397,7 @@ height: 85%;
 
 #login {
 width: 80%;
-height: 85%;
+/* height: 85%; */
 
 }
 
