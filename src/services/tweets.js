@@ -74,7 +74,8 @@ export const postReply=async function(tid,pid,reply){
   await axios.post(`${url}/tweets/reply`, {'id': pid, 'reply': reply}, {
     headers: {
       'Content-Type': 'application/json'
-    }
+    },
+    withCredentials: true
   })
     .then(successHandler)
     .catch(errorHandler);
@@ -82,10 +83,7 @@ export const postReply=async function(tid,pid,reply){
 
   console.log("post reply")
 
-  await axios.post(`https://ushareinteract-2.onrender.com/user/post/${tid}/comments`,{'comment':reply},{ withCredentials: true ,
-  headers: {
-    'Authorization': 'Admin',
-  }}).then(successHandler).catch(errorHandler);
+  await axios.post(`https://ushareinteract-2.onrender.com/user/post/${tid}/comments`,{'comment':reply},{ withCredentials: true }).then(successHandler).catch(errorHandler);
 
  
 }
