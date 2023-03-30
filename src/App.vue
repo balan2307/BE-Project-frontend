@@ -86,7 +86,7 @@ export default {
 created()
 {
   eventBus.$on("alert", (data) => {
-    console.log("bus",data)
+
     this.errormessage=data;
 
 })

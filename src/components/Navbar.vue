@@ -60,7 +60,7 @@ export default {
       ...mapMutations(['setAuthtype']),
       logout()
       {
-        console.log("logout",firebase.auth)
+    
         firebase.auth().signOut().then(()=>{
           this.$router.push('/auth')
         })

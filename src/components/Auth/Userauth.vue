@@ -160,10 +160,10 @@ export default {
   },
   created() {
     eventBus.$on("setAuth", (data) => {
-      console.log("inside bus");
+
       this.mode = data;
     });
-    console.log("check store", this.getAuthtype);
+
     this.mode = this.getAuthtype;
   },
   methods: {
@@ -176,12 +176,12 @@ export default {
       } else if (this.mode == "signup") {
         this.mode = "login";
       }
-      console.log("change", this.mode);
+ 
     },
     async onSubmit(event) {
       event.preventDefault();
 
-      console.log("form", JSON.stringify(this.form));
+      
       //  await LoginUser(this.form.email,this.form.password)
 
       if (this.mode == "login" && !this.$v.user.$invalid)
@@ -201,7 +201,7 @@ export default {
             if(err.code=="auth/wrong-password" || err.code=="auth/user-not-found") errormessage="Entered email or password is incorrect"
             if(err.code=="auth/too-many-requests") errormessage="Too many login attempts ,try again after sometime"
             eventBus.$emit("alert",errormessage);
-            console.log("error ", err,err.code);
+      
           });
       else if(this.mode == "signup" && !this.$v.user.$invalid)
         createUserWithEmailAndPassword(
@@ -223,20 +223,7 @@ export default {
             console.log("error ", err);
           });
 
-      // try
-      // {
-      // this.$store
-      //   .dispatch("login",{
-      //     email:this.form.email,
-      //     password:this.form.password
-      //   })
-
-      //   this.$router.replace("/emergency");
-      // }
-      // catch(err)
-      // {
-      //   console.log("logine rr",err)
-      // }
+  
     },
 
     onReset(event) {

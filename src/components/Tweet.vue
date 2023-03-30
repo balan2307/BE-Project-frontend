@@ -84,7 +84,7 @@ export default {
 
       eventBus.$emit("replysent", {message:"Reply sent successfully"});
       await postReply(tid,pid,reply)
-      console.log("sent bus")
+
       
    
     }

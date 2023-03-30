@@ -71,7 +71,14 @@ export const postReply=async function(tid,pid,reply){
  
   // const res=await login();
   // console.log("Response",res)
-  axios.post(`${url}/tweets/reply`,{'id':pid,'reply':reply}).then(successHandler).catch(errorHandler);
+  axios.post(`${url}/tweets/reply`,{'id':pid,'reply':reply},{
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'https://railwaygrievances.netlify.app',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+    }
+  }).then(successHandler).catch(errorHandler);
 
   console.log("post reply")
 

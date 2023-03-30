@@ -66,7 +66,7 @@ export default {
           this.pagelimit
         );
 
-        console.log("feedback respon",tweets)
+      
 
         this.pages = tweets.data.pages;
         tweets = tweets.data.posts;
@@ -78,7 +78,7 @@ export default {
           this.currentpage,
           this.pagelimit
         );
-        console.log("feedback respon",tweets)
+      
 
         this.pages = tweets.data.pages;
         tweets = tweets.data.posts;

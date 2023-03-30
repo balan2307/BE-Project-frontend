@@ -64,7 +64,7 @@ export default {
       });
     },
     async showTweets() {
-      // console.log("show tweets")
+    
       if (this.$route.query.search != "responded") {
         let tweets = await getEmerNotRespondedTweets(
           this.currentpage,
@@ -97,10 +97,10 @@ export default {
     this.showTweets();
 
     let intervalID = setInterval(this.showTweets, 3000);
-    // console.log("setInterval", intervalID);
+   
 
     this.$once("hook:beforeDestroy", () => {
-      // console.log("clear", intervalID);
+   
       clearInterval(intervalID);
     });
   },
