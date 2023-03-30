@@ -67,7 +67,7 @@ export const getFeedbackRespondedTweets=async function(currpage,perpage){
 export const postReply=async function(tid,pid,reply){
 
 
-  console.log("reply",reply)
+  console.log("post reply",reply)
  
   // const res=await login();
   // console.log("Response",res)
@@ -82,7 +82,7 @@ export const postReply=async function(tid,pid,reply){
 
   console.log("post reply")
 
-  return axios.post(`https://ushareinteract-2.onrender.com/user/post/${tid}/comments`,{'comment':reply},{ withCredentials: true ,
+  await axios.post(`https://ushareinteract-2.onrender.com/user/post/${tid}/comments`,{'comment':reply},{ withCredentials: true ,
   headers: {
     'Authorization': 'Admin',
   }}).then(successHandler).catch(errorHandler);
