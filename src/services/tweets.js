@@ -1,11 +1,13 @@
 import axios from 'axios'
 import { successHandler, errorHandler } from "./helper";
 
+const url='https://rga-backend.onrender.com'
+
 export const getTweets=async function(){
 
 
    
-  return axios.get(`http://localhost:3000/tweets`).then(successHandler).catch(errorHandler);
+  return axios.get(`${url}/tweets`).then(successHandler).catch(errorHandler);
 
 
 
@@ -15,7 +17,7 @@ export const getEmerRespondedTweets=async function(currpage,perpage){
 
 
    
-  return axios.get(`http://localhost:3000/emergency/resp`,{
+  return axios.get(`${url}/emergency/resp`,{
     params: {
       page: currpage,
       limit: perpage,
@@ -26,7 +28,7 @@ export const getEmerRespondedTweets=async function(currpage,perpage){
 export const getEmerNotRespondedTweets=async function(currpage,perpage){
 
 
-  return axios.get(`http://localhost:3000/emergency/unresp`,{
+  return axios.get(`${url}/emergency/unresp`,{
     params: {
       page: currpage,
       limit: perpage,
@@ -37,7 +39,7 @@ export const getEmerNotRespondedTweets=async function(currpage,perpage){
 export const getFeedbackNotRespondedTweets=async function(currpage,perpage){
 
 
-  return axios.get(`http://localhost:3000/feedback/unresp`,{
+  return axios.get(`${url}/feedback/unresp`,{
     params: {
       page: currpage,
       limit: perpage,
@@ -48,7 +50,7 @@ export const getFeedbackNotRespondedTweets=async function(currpage,perpage){
 export const getFeedbackRespondedTweets=async function(currpage,perpage){
 
 
-  return axios.get(`http://localhost:3000/feedback/resp`,{
+  return axios.get(`${url}/feedback/resp`,{
     params: {
       page: currpage,
       limit: perpage,
@@ -69,7 +71,7 @@ export const postReply=async function(tid,pid,reply){
  
   // const res=await login();
   // console.log("Response",res)
-  axios.post(`http://localhost:3000/tweets/reply`,{'id':pid,'reply':reply}).then(successHandler).catch(errorHandler);
+  axios.post(`${url}/tweets/reply`,{'id':pid,'reply':reply}).then(successHandler).catch(errorHandler);
 
   console.log("post reply")
 
