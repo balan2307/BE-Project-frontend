@@ -99,13 +99,13 @@ export default {
         this.loading=true;
         this.showTweets();
 
-    // let intervalID = setInterval(this.showTweets, 3000);
-    // // console.log("setInterval", intervalID);
+    let intervalID = setInterval(this.showTweets, 3000);
+    // console.log("setInterval", intervalID);
 
-    // this.$once("hook:beforeDestroy", () => {
-    //   // console.log("clear", intervalID);
-    //   clearInterval(intervalID);
-    // });
+    this.$once("hook:beforeDestroy", () => {
+      // console.log("clear", intervalID);
+      clearInterval(intervalID);
+    });
 
 
 
