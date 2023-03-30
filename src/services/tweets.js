@@ -71,7 +71,7 @@ export const postReply=async function(tid,pid,reply){
  
   // const res=await login();
   // console.log("Response",res)
-  axios.post(`${url}/tweets/reply`,{'id':pid,'reply':reply},{
+  await axios.post(`${url}/tweets/reply`,{'id':pid,'reply':reply},{
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': 'https://railwaygrievances.netlify.app',
