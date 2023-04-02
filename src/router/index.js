@@ -41,6 +41,7 @@ const router=new Router({
         },
         {
             name:'Register',
+        
             path:'/auth',
             components:{
                 auth:AuthPage
@@ -57,6 +58,10 @@ const router=new Router({
         },
         {
             name:'TweetAnalytics',
+            meta:{
+                requiresAuth:true
+
+            },
             path:'/analysis',
             components:{
                 main:TweetAnalytics
