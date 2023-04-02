@@ -3,8 +3,10 @@
     <div id="title">
       <!-- <h5>Dashboard</h5> -->
     </div>
+  
+    <LoadingIcon :loading="loading"></LoadingIcon>
 
-    <div>
+    <div v-if="!loading">
       <div id="tab-stats">
         <div class="stats">
           <h6 class="tab-heading">Total Tweets</h6>
@@ -70,15 +72,17 @@ import { getAnalytics } from "@/services/tweets";
 import PieChart from "@/components/Utils/PieChart.vue";
 import BarChart from "@/components/Utils/BarChart.vue";
 import MultiBarchart from "@/components/Utils/MultiBarchart.vue";
+import LoadingIcon from '@/components/Utils/Loading.vue'
 
 export default {
   name: "TweetAnalytics",
-  components: { PieChart, BarChart, MultiBarchart },
+  components: { PieChart, BarChart, MultiBarchart ,LoadingIcon },
   data() {
     return {
       data: [this.total_emergencyTweets, this.total_feedbackTweets],
       labels: ["Emergency", "Feedback"],
       mbc:0,
+      loading:true,
       chartData: [
         {
           name: "Responded",
@@ -310,12 +314,14 @@ export default {
     
 
     console.log("check ",this.total_emergencyTweetsUnResponded)
+    this.loading=false
 
     }
 
   },
   async created() {
 
+    this.loading=true;
     this.showCharts();
     let intervalID = setInterval(this.showCharts, 3000);
    
