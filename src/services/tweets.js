@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { successHandler, errorHandler } from "./helper";
 
-// const url='https://rga-backend.onrender.com'
-const url='https://railwaygrievances.netlify.app'
+const url='https://rga-backend.onrender.com'
+// const url='https://railwaygrievances.netlify.app'
 
 export const getTweets=async function(){
 
