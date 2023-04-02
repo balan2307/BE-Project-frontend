@@ -176,6 +176,9 @@ body {
 #allTweets {
   /* border: 1px solid red; */
   width: 90%;
+  margin-top: 100px;
+     height: 100%;
+  padding-bottom: 20px;
 }
 
 .row {

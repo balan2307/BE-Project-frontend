@@ -4,6 +4,7 @@ import Emergency from '@/components/TweetSection/emergencyTweets.vue'
 import Feedback from '@/components/TweetSection/feedbackTweets.vue'
 import AuthPage from '@/components/Auth/Userauth'
 import firebase from 'firebase/compat/app'
+import TweetAnalytics from '@/components/Analytics.vue'
 import 'firebase/compat/auth'
 // import {getAuth } from "firebase/auth"
 // import store from 'store'
@@ -53,6 +54,13 @@ const router=new Router({
             }
 
         
+        },
+        {
+            name:'TweetAnalytics',
+            path:'/analysis',
+            components:{
+                main:TweetAnalytics
+            }
         }
 
     ]

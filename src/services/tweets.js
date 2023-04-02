@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { successHandler, errorHandler } from "./helper";
 
-const url='https://rga-backend.onrender.com'
+// const url='https://rga-backend.onrender.com'
+const url='https://railwaygrievances.netlify.app'
 
 export const getTweets=async function(){
 
@@ -55,6 +56,13 @@ export const getFeedbackRespondedTweets=async function(currpage,perpage){
       page: currpage,
       limit: perpage,
     }}).then(successHandler).catch(errorHandler);
+
+}
+
+export const getAnalytics=async function(){
+
+
+  return axios.get(`${url}/tweets/analysis`).then(successHandler).catch(errorHandler);
 
 }
 
