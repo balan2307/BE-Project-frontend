@@ -6,9 +6,10 @@
       <span class="tweet_header" >{{type}}</span>
     
       <div class="p-3 tweet_content">
-      <b-card-text class="tweet_data">
-       {{ tweet.tweet }}
-      </b-card-text>
+
+        <b-card-text class="tweet_data" @click="openTweet">
+  {{ tweet.tweet }}
+</b-card-text>
      
       <div class="reply" v-if="tweet.responded">
 
@@ -55,11 +56,26 @@ export default {
     return{
       showMsgBox:false,
       reply:'',
+      tweetId:''
 
     }
 
   },
+  computed:{
+
+    getTweetId()
+    {
+      return this.tweetId
+    }
+
+  },
   methods:{
+    openTweet()
+    {
+
+      window.open(`https://ushareinteract-2.onrender.com/user/post/${this.getTweetId}`, '_blank')
+
+    },
 
     toggleReply()
     {
@@ -78,6 +94,7 @@ export default {
       this.reply=" ";
       this.toggleReply();
       const tid= JSON.parse(this.tweet.tweet_ID).$oid;
+      this.tweetId=tid
       const pid=this.tweet._id;
       this.$emit("hidePost",tid);
 
@@ -92,6 +109,8 @@ export default {
   },
   created(){
 
+    const tid= JSON.parse(this.tweet.tweet_ID).$oid;
+      this.tweetId=tid
 
     
 
@@ -112,6 +131,7 @@ export default {
 {
 
     text-align: left;
+    cursor: pointer;
 }
 .tweet_content
 {
