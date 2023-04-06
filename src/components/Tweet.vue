@@ -6,6 +6,8 @@
       <span class="tweet_header" >{{type}}</span>
     
       <div class="p-3 tweet_content">
+        {{ tweet.tweet_ID }}
+        {{ getTweetId }}
 
         <b-card-text class="tweet_data" @click="openTweet">
   {{ tweet.tweet }}
@@ -61,11 +63,21 @@ export default {
     }
 
   },
+  watch: {
+    tweet(newValue) {
+
+
+      const tid= JSON.parse(newValue.tweet_ID).$oid;
+      this.tweetId=tid
+    },
+  },
   computed:{
 
     getTweetId()
     {
       return this.tweetId
+
+      
     }
 
   },

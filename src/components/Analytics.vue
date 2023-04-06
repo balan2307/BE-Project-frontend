@@ -205,6 +205,8 @@ export default {
     total_emergencyTweetsResponded(newValue, oldValue) {
       this.chartData[0].data[0] = newValue;
       console.log("old f", oldValue, this.data);
+      // this.renderchart3=true;
+      this.renderchart4=true;
       // this.renderchart4=true;
     },
 
@@ -213,6 +215,9 @@ export default {
 
       this.chartData[0].data[2] =
         this.chartData[0].data[0] + this.chartData[0].data[1];
+
+        // this.renderchart2=true;
+      this.renderchart4=true;
       console.log("old f", oldValue, this.data);
       // this.renderchart4=true;
     },
