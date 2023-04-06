@@ -6,8 +6,8 @@
       <span class="tweet_header" >{{type}}</span>
     
       <div class="p-3 tweet_content">
-        {{ tweet.tweet_ID }}
-        {{ getTweetId }}
+        <!-- {{ tweet.tweet_ID }}
+        {{ getTweetId }} -->
 
         <b-card-text class="tweet_data" @click="openTweet">
   {{ tweet.tweet }}
