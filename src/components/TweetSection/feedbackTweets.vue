@@ -38,7 +38,7 @@ export default {
             pages: 5,
             page: 1,
             currentpage: this.$route.query.page || 1,
-            pagelimit: 4,
+            pagelimit: 8,
             loading:true
 
         }
