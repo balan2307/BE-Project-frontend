@@ -80,9 +80,17 @@
         </b-form-group>
 
         <div id="submit-section">
-          <b-button id="submit-btn" type="submit" variant="primary" size="sm">{{
+          
+          <b-button id="submit-btn" type="submit" variant="primary" size="sm">
+      
+            <LoadingIcon :loading="getStatus"></LoadingIcon>
+            <div class="ml-2">
+            {{
             changeSubmitBtnCaption
-          }}</b-button>
+          }}
+              </div>
+          </b-button>
+      
 
           <p id="alter-auth" @click="changeAuth" >{{
             changeSwitchAuthBtnCaption
@@ -101,6 +109,8 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import InputField from '@/components/Utils/Forms/Input.vue'
+import LoadingIcon from '@/components/Utils/Loading.vue'
+
 import { required, email,minLength } from "vuelidate/lib/validators";
 import { mapGetters } from "vuex";
 import { mapState } from "vuex";
@@ -108,14 +118,16 @@ import { eventBus } from "@/main";
 
 export default {
   name: "AuthPage",
-  components:{InputField},
+  components:{InputField,LoadingIcon},
   data() {
     return {
       user: {
         email: "",
         password: "",
       },
+      loading:false,
       mode: "login",
+      load:0,
       show: true,
       // authtype: 'login'
     };
@@ -148,9 +160,16 @@ export default {
   computed: {
     ...mapGetters(["getAuthtype"]),
     ...mapState(["authtype"]),
+    getStatus()
+    {
+      console.log("computed ",this.loading)
+      return this.loading
+    },
 
     changeSubmitBtnCaption() {
-      if (this.mode == "login") return "Login";
+      console.log("inside computed",this.loading)
+      if(this.loading==true) return "Authenticating"
+      else if (this.mode == "login") return "Login";
       else return "SignUp";
     },
     changeSwitchAuthBtnCaption() {
@@ -159,6 +178,7 @@ export default {
     },
   },
   created() {
+  
     eventBus.$on("setAuth", (data) => {
 
       this.mode = data;
@@ -179,7 +199,12 @@ export default {
  
     },
     async onSubmit(event) {
+      this.loading=true;
+      this.$set(this, 'loading', true);
       event.preventDefault();
+ 
+      console.log("loading",this.loading)
+     
 
       
       //  await LoginUser(this.form.email,this.form.password)
@@ -193,9 +218,11 @@ export default {
           .then((data) => {
             console.log("login successfully", data);
 
+            this.loading=false
             this.$router.push("/emergency");
           })
           .catch((err) => {
+            this.loading=false
 
             let errormessage='';
             if(err.code=="auth/wrong-password" || err.code=="auth/user-not-found") errormessage="Entered email or password is incorrect"
@@ -211,31 +238,35 @@ export default {
         )
           .then((data) => {
             console.log("register successfully", data);
+            this.loading=false
             eventBus.$emit("setAuth",'login')
+            // this.onReset()
           })
       
 
           .catch((err) => {
+            this.loading=false
             let errormessage='';
             if(err.code=="auth/email-already-in-use" ) errormessage="Email already in use"
             if(err.code=="auth/too-many-requests") errormessage="Too many login attempts ,try again after sometime"
             eventBus.$emit("alert",errormessage);
             console.log("error ", err);
           });
+          // this.loading=false
 
   
     },
 
-    onReset(event) {
-      event.preventDefault();
+    onReset() {
+      // event.preventDefault();
       // Reset our form values
-      this.form.email = "";
-      this.form.name = "";
+      this.user.email = "";
+      this.user.password = "";
       // Trick to reset/clear native browser form validation state
-      this.show = false;
-      this.$nextTick(() => {
-        this.show = true;
-      });
+      // this.show = false;
+      // this.$nextTick(() => {
+      //   this.show = true;
+      // });
     },
   },
 };
@@ -295,6 +326,10 @@ label {
   font-size: 15px;
   height: 35px;
   /* border-radius: 25px; */
+  /* width: 40%; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 #authform
